@@ -1,6 +1,6 @@
 ﻿namespace Repositories.Repositories
 {
-    public class Class1
+    public class ArticleRepository
     {
 
     }

@@ -1,4 +1,4 @@
-﻿namespace IRepositories
+﻿namespace Const
 {
 	public class Class1
 	{

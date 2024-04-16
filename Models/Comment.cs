@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace Models
 		public int ArticleID { get; set; }
 
 		//navigation properties
+		[DeleteBehavior(DeleteBehavior.NoAction)]
 		public Article Article { get; set; }
 	}
 }
