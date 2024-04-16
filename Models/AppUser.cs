@@ -9,8 +9,8 @@ namespace Models
 {
 	public class AppUser : IdentityUser
 	{
-		public Article Article { get; set; }
-		public Comment Comment { get; set; }
+		public List<Article> Articles { get; set; }
+		public List<Comment> Comments { get; set; }
 		public int Age { get; set; }
 	}
 }

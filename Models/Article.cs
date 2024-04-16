@@ -19,7 +19,6 @@ namespace Models
 
 		public string AppUserID { get; set; }
 		public AppUser AppUser { get; set; }
-		public AppUser User { get; set; }
 
 		//navigation properties
 		public Theme Theme { get; set; }
