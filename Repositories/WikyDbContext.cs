@@ -31,7 +31,6 @@ namespace Repositories
             var a1 = new Article
             {
                 Id = 1,
-                Author = "Jean Dujardin",
 				Title = "Titre 1",
 				Content = "Ceci est un article de l'auteur Jean Dujardin",
                 Priority = Priority.Low,
@@ -40,7 +39,6 @@ namespace Repositories
             var a2 = new Article
             {
                 Id = 2,
-                Author = "Christine Carpentras",
                 Title="Titre 2",
                 Content = "Ceci est un article de l'auteur Christine Carpentras",
                 Priority = Priority.Medium,
@@ -52,14 +50,12 @@ namespace Repositories
             var c1 = new Comment
             {
                 Id = 1,
-                Author = "Victoire Jarbi",
                 Content = "J'aime beaucoup cet article",
                 ArticleID = 1
             };
             var c2 = new Comment
             {
                 Id = 2,
-                Author = "Robert Breton",
                 Content = "Bof bof",
                 ArticleID = 2
             };

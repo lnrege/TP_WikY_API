@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using IRepositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -6,7 +7,7 @@ namespace TP_WikY_API.Controllers
 {
 	[Route("api/[controller]/[action]")]
 	[ApiController]
-	public class TestAuthController : ControllerBase
+	public class TestAuthController(IArticleRepository articleRepository) : ControllerBase
 	{
 		[HttpGet]
 		[Authorize]
@@ -18,7 +19,7 @@ namespace TP_WikY_API.Controllers
 		//[HttpPost]
 		//public IActionResult CreateArticle(string title, string content)
 		//{
-
+		//	var article=articleRepository.Articles
 		//}
 	}
 }

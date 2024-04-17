@@ -11,9 +11,6 @@ namespace Models
 	public class Comment
 	{
 		public int Id { get; set; }
-
-		[Required]
-		public string Author { get; set; }
 		public DateTime CreationDate { get; set; }
 		public DateTime LastModifiedDate { get; set; }
 

@@ -2,18 +2,34 @@
 using DTOs.Article;
 using IRepositories;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using System.Security.Claims;
 
 namespace TP_WikY_API.Controllers
 {
 	[Route("api/[controller]/[action]")]
 	[ApiController]
-	//[Authorize]
-	public class ArticleController(IArticleRepository articleRepository, IMapper mapper) : ControllerBase
-	{
-		[HttpGet]
 
+	public class ArticleController : ControllerBase
+	{
+		IArticleRepository articleRepository;
+		IMapper mapper;
+		UserManager<AppUser> userManager;
+		public ArticleController(IArticleRepository articleRepository, IMapper mapper, UserManager<AppUser> userManager)
+		{
+			this.articleRepository = articleRepository;
+			this.userManager = userManager;
+			this.mapper = mapper;
+		}
+
+	
+		//SignInManager<AppUser> signInManager
+
+
+		[HttpGet]
+		[Authorize]
 		public async Task<IActionResult> GetAllArticles()
 		{
 			return Ok(await articleRepository.GetAllArticlesAsync());
@@ -31,13 +47,14 @@ namespace TP_WikY_API.Controllers
 		/// </summary>
 		/// <returns>article</returns>
 		[HttpPost]
-		public async Task<ActionResult> CreateArticle(ArticleAddorUpdateDTO articleAddDTO)
+		[Authorize]
+		public async Task<ActionResult> CreateArticle(ArticleAddDTO articleAddDTO)
 		{
 			try
 			{
 				var article = mapper.Map<Article>(articleAddDTO);
-
-				article = await articleRepository.CreateArticleAsync(article);
+				var user = await userManager.GetUserAsync(User);
+				article = await articleRepository.CreateArticleAsync(article, user);
 
 				return Ok(article);
 			}
@@ -52,7 +69,7 @@ namespace TP_WikY_API.Controllers
 		/// </summary>
 		/// <returns>the updated article</returns>
 		[HttpPut]
-		public async Task<ActionResult> UpdateArticle(ArticleAddorUpdateDTO articleUpdateDTO)
+		public async Task<ActionResult> UpdateArticle(ArticleUpdateDTO articleUpdateDTO)
 		{
 			try
 			{

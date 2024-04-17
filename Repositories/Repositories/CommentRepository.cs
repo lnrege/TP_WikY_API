@@ -37,8 +37,7 @@ namespace Repositories.Repositories
 		public async Task<Comment?> UpdateCommentAsync(Comment comment)
 		{
 			await context.Comments.Where(c => c.Id == comment.Id).ExecuteUpdateAsync(
-				updates => updates.SetProperty(c => c.Author, comment.Author)
-				.SetProperty(c => c.Content, comment.Content)
+				updates => updates.SetProperty(c => c.Content, comment.Content)
 				.SetProperty(c => c.LastModifiedDate, DateTime.Now));
 			return await context.Comments.FindAsync(comment.Id);
 		}

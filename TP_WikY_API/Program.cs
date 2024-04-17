@@ -8,12 +8,19 @@ using Models;
 using Repositories;
 using Repositories.Repositories;
 using Swashbuckle.AspNetCore.Filters;
+using System.Reflection;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllers().AddJsonOptions(o =>
+{ o.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles; }
+);
 builder.Services.AddAutoMapper(c =>
 {
-	c.CreateMap <ArticleAddorUpdateDTO, Article>();
-	c.CreateMap<CommentAddorUpdateDTO, Comment>();
+	c.CreateMap<ArticleAddDTO, Article>();
+	c.CreateMap<ArticleUpdateDTO, Article>();
+	//.ForMember(dest=>dest.AppUserID, a=>a.MapFrom(src=>src.UserID));
+	//c.CreateMap<CommentUpdateDTO, Comment>();
 });
 builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<AppUser>().AddEntityFrameworkStores<WikyDbContext>();
@@ -24,6 +31,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
+	c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+	// Set the comments path for the Swagger JSON and UI.
+	var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+	var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+	c.IncludeXmlComments(xmlPath);
+
 	c.AddSecurityDefinition("oauth2", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
 	{
 		In = Microsoft.OpenApi.Models.ParameterLocation.Header,

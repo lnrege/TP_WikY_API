@@ -9,8 +9,8 @@ using Models;
 
 namespace Repositories.Repositories
 {
-    public class ArticleRepository : IArticleRepository
-    {
+	public class ArticleRepository : IArticleRepository
+	{
 		private readonly WikyDbContext context;
 		public ArticleRepository(WikyDbContext context)
 		{
@@ -27,8 +27,10 @@ namespace Repositories.Repositories
 			return await context.Articles.FirstOrDefaultAsync(c => c.Id == id);
 		}
 
-		public async Task<Article> CreateArticleAsync(Article article)
+		public async Task<Article> CreateArticleAsync(Article article, AppUser user)
 		{
+			article.CreationDate = DateTime.Now;
+			article.AppUserID = user.Id;
 			await context.Articles.AddAsync(article);
 			await context.SaveChangesAsync();
 			return article;
@@ -37,8 +39,7 @@ namespace Repositories.Repositories
 		public async Task<Article?> UpdateArticleAsync(Article article)
 		{
 			await context.Articles.Where(c => c.Id == article.Id).ExecuteUpdateAsync(
-				updates => updates.SetProperty(c => c.Author, article.Author)
-				.SetProperty(c => c.Content, article.Content)
+				updates => updates.SetProperty(c => c.Content, article.Content)
 				.SetProperty(c => c.LastModifiedDate, DateTime.Now));
 			return await context.Articles.FindAsync(article.Id);
 		}

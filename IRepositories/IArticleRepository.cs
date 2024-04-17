@@ -14,7 +14,7 @@ namespace IRepositories
 
 		public  Task<Article> GetArticleByIdAsync(int id);
 
-		public Task<Article> CreateArticleAsync(Article article);
+		public Task<Article> CreateArticleAsync(Article article, AppUser user);
 
 		public  Task<Article?> UpdateArticleAsync(Article article);
 

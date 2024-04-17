@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace DTOs.Article
 {
-	internal class Class2
+	public class ArticleAddDTO
 	{
+		public string Title { get; set; }
+		public string Content { get; set; }
+		public int ThemeID { get; set; }
 	}
 }

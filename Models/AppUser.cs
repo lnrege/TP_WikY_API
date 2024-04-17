@@ -12,5 +12,6 @@ namespace Models
 		public List<Article>? Articles { get; set; }
 		public List<Comment>? Comments { get; set; }
 		public DateOnly Dob { get; set; }
+		public string Name { get; set; }
 	}
 }

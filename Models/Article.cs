@@ -6,9 +6,6 @@ namespace Models
 	public class Article
 	{
 		public int Id { get; set; }
-
-		[Required]
-		public string Author { get; set; }
 		public DateTime CreationDate { get; set; }
 		public DateTime LastModifiedDate { get; set; }
 		public string Title { get; set; }
