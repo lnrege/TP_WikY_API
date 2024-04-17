@@ -1,4 +1,6 @@
+using DTOs.Article;
 using IRepositories;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Models;
@@ -7,6 +9,10 @@ using Repositories.Repositories;
 using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddAutoMapper(c =>
+{
+	c.CreateMap <ArticleAddDTO, Article>();
+});
 builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<AppUser>().AddEntityFrameworkStores<WikyDbContext>();
 // Add services to the container.
@@ -26,6 +32,7 @@ builder.Services.AddSwaggerGen(c =>
 }
 );
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
 builder.Services.AddDbContext<WikyDbContext>(o =>
 {
 	o.UseSqlServer(builder.Configuration.GetConnectionString("TP_WikY_API"));

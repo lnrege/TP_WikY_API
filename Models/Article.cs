@@ -17,11 +17,11 @@ namespace Models
 
 		public int ThemeID { get; set; }
 
-		public string AppUserID { get; set; }
-		public AppUser AppUser { get; set; }
+		public string? AppUserID { get; set; }
+		public AppUser? AppUser { get; set; }
 
 		//navigation properties
-		public Theme Theme { get; set; }
+		public Theme? Theme { get; set; }
 		public List<Comment?> Comments { get; set; }
 
 	}

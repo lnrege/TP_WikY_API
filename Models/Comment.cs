@@ -21,7 +21,7 @@ namespace Models
 		public string Content { get; set; }
 
 		public string? AppUserID { get; set; }
-		public AppUser AppUser { get; set; }
+		public AppUser? AppUser { get; set; }
 		public int ArticleID { get; set; }
 
 		//navigation properties
