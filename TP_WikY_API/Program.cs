@@ -1,4 +1,5 @@
 using DTOs.Article;
+using DTOs.Comment;
 using IRepositories;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,8 @@ using Swashbuckle.AspNetCore.Filters;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapper(c =>
 {
-	c.CreateMap <ArticleAddDTO, Article>();
+	c.CreateMap <ArticleAddorUpdateDTO, Article>();
+	c.CreateMap<CommentAddorUpdateDTO, Comment>();
 });
 builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<AppUser>().AddEntityFrameworkStores<WikyDbContext>();

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DTOs.Article
 {
-    public class ArticleAddDTO
+    public class ArticleAddorUpdateDTO
 	{
 		public int Id { get; set; }
 		public string Author { get; set; }

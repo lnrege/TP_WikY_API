@@ -31,7 +31,7 @@ namespace TP_WikY_API.Controllers
 		/// </summary>
 		/// <returns>article</returns>
 		[HttpPost]
-		public async Task<ActionResult> CreateArticle(ArticleAddDTO articleAddDTO)
+		public async Task<ActionResult> CreateArticle(ArticleAddorUpdateDTO articleAddDTO)
 		{
 			try
 			{
@@ -52,15 +52,15 @@ namespace TP_WikY_API.Controllers
 		/// </summary>
 		/// <returns>the updated article</returns>
 		[HttpPut]
-		public async Task<ActionResult> UpdateArticle(ArticleAddDTO articleAddDTO)
+		public async Task<ActionResult> UpdateArticle(ArticleAddorUpdateDTO articleUpdateDTO)
 		{
 			try
 			{
-				var article = mapper.Map<Article>(articleAddDTO);
+				var article = mapper.Map<Article>(articleUpdateDTO);
 
 				article = await articleRepository.UpdateArticleAsync(article);
 
-				return Ok(await articleRepository.GetArticleByIdAsync(articleAddDTO.Id));
+				return Ok(await articleRepository.GetArticleByIdAsync(articleUpdateDTO.Id));
 			}
 			catch (Exception e)
 			{

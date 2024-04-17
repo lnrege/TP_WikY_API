@@ -1,7 +1,10 @@
-﻿using IRepositories;
+﻿using AutoMapper;
+using DTOs.Comment;
+using IRepositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using Repositories.Repositories;
 
 namespace TP_WikY_API.Controllers
 {
@@ -10,18 +13,11 @@ namespace TP_WikY_API.Controllers
 	[ApiController]
 	//[Authorize]
 
-	public class CommentController : ControllerBase
+	public class CommentController(ICommentRepository commentRepository, IMapper mapper) : ControllerBase
 	{
-		
-		ICommentRepository commentRepository;
-		public CommentController(ICommentRepository commentRepository)
-		{
-			this.commentRepository = commentRepository;
-		}
-		
+				
 		[HttpGet]
-		
-		public async Task<IActionResult> GetAllComments()
+				public async Task<IActionResult> GetAllComments()
 		{
 			return Ok(await commentRepository.GetAllCommentsAsync());
 		}
@@ -35,17 +31,40 @@ namespace TP_WikY_API.Controllers
 
 
 		[HttpPost]
-		public async Task<IActionResult> CreateComment(Comment comment)
+		public async Task<IActionResult> CreateComment(CommentAddorUpdateDTO commentAddDTO)
 		{
-			await commentRepository.CreateCommentAsync(comment);
-			return Ok(comment);
+			//await commentRepository.CreateCommentAsync(comment);
+			//return Ok(comment);
+
+			try
+			{
+				var comment = mapper.Map<Comment>(commentAddDTO);
+
+				comment = await commentRepository.CreateCommentAsync(comment);
+
+				return Ok(comment);
+			}
+			catch (Exception e)
+			{
+				return Problem(e!.InnerException!.Message);
+			}
 		}
 
 		[HttpPut]
-		public async Task<IActionResult> UpdateComment(Comment comment)
+		public async Task<IActionResult> UpdateComment(CommentAddorUpdateDTO commentUpdateDTO)
 		{
-			await commentRepository.UpdateCommentAsync(comment);
-			return Ok(await commentRepository.GetCommentByIdAsync(comment.Id));
+			try
+			{
+				var comment = mapper.Map<Comment>(commentUpdateDTO);
+
+				comment = await commentRepository.UpdateCommentAsync(comment);
+
+				return Ok(await commentRepository.GetCommentByIdAsync(commentUpdateDTO.Id));
+			}
+			catch (Exception e)
+			{
+				return Problem(e!.InnerException!.Message);
+			}
 		}
 
 		[HttpDelete]
