@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using DTOs.Comment;
+using DTOs.DTOsComment;
 using IRepositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

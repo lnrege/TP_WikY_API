@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DTOs.DTOsArticle;
+using Microsoft.EntityFrameworkCore;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace IRepositories
 {
 	public interface IArticleRepository
 	{
-		public Task<List<Article>> GetAllArticlesAsync();
+		public Task<List<ArticleGetDTO>> GetAllArticlesAsync();
 
 		public  Task<Article> GetArticleByIdAsync(int id);
 

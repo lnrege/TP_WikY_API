@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DTOs.Comment
+namespace DTOs.DTOsComment
 {
 	public class CommentAddorUpdateDTO
 	{

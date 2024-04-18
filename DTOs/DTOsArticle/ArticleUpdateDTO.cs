@@ -1,7 +1,7 @@
 ﻿using Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace DTOs.Article
+namespace DTOs.DTOsArticle
 {
     public class ArticleUpdateDTO
 	{

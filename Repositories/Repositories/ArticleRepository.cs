@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Models;
+using DTOs.DTOsArticle;
 
 namespace Repositories.Repositories
 {
@@ -17,9 +18,20 @@ namespace Repositories.Repositories
 			this.context = context;
 		}
 
-		public async Task<List<Article>> GetAllArticlesAsync()
+		public async Task<List<ArticleGetDTO>> GetAllArticlesAsync()
 		{
-			return await context.Articles.ToListAsync();
+			var articles = await context.Articles.Include(a => a.Theme)
+			   .Include(a => a.AppUser)
+			   .Select(a => new ArticleGetDTO
+			   {
+				   Title = a.Title,
+				   Content = a.Content,
+				   CreationDate = a.CreationDate,
+				   LastModifiedDate = a.LastModifiedDate,
+				   ThemeName = a.Theme.Label
+			   })
+			   .ToListAsync();
+			return articles;
 		}
 
 		public async Task<Article> GetArticleByIdAsync(int id)

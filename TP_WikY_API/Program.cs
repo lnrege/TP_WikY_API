@@ -1,5 +1,5 @@
-using DTOs.Article;
-using DTOs.Comment;
+using DTOs.DTOsArticle;
+using DTOs.DTOsComment;
 using IRepositories;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.EntityFrameworkCore;

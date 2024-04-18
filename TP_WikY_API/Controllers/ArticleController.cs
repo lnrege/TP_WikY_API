@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using DTOs.Article;
+using DTOs.DTOsArticle;
 using IRepositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -29,7 +29,7 @@ namespace TP_WikY_API.Controllers
 
 
 		[HttpGet]
-		[Authorize]
+		
 		public async Task<IActionResult> GetAllArticles()
 		{
 			return Ok(await articleRepository.GetAllArticlesAsync());
@@ -86,6 +86,7 @@ namespace TP_WikY_API.Controllers
 		}
 
 		[HttpDelete]
+		[Authorize]
 		public async Task<IActionResult> DeleteArticleByID(int id)
 		{
 			return Ok(await articleRepository.DeleteArticleByIDAsync(id));
