@@ -46,7 +46,7 @@ namespace Repositories.Repositories
 			await context.Articles.AddAsync(article);
 			await context.SaveChangesAsync();
 
-			var articles = await context.Articles.Where(a=>a.Id==article.Id)
+			var articles = await context.Articles.Where(a => a.Id == article.Id)
 				.Include(a => a.Theme)
 		   .Include(a => a.AppUser)
 		   .Select(a => new ArticleGetDTO

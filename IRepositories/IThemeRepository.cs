@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IRepositories
 {
-	internal interface IThemeRepository
+	public interface IThemeRepository
 	{
 	}
 }

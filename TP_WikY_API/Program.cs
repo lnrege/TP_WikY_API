@@ -21,8 +21,9 @@ builder.Services.AddAutoMapper(c =>
 	c.CreateMap<ArticleAddDTO, Article>();
 	c.CreateMap<ArticleUpdateDTO, Article>();
 	c.CreateMap<ArticleCreateDTO, Article>();
-	//.ForMember(dest=>dest.AppUserID, a=>a.MapFrom(src=>src.UserID));
-	//c.CreateMap<CommentUpdateDTO, Comment>();
+	c.CreateMap<CommentGetDTO, Comment>();
+	c.CreateMap<CommentAddDTO, Comment>();
+	c.CreateMap<CommentUpdateDTO, Comment>();
 });
 builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<AppUser>().AddEntityFrameworkStores<WikyDbContext>();

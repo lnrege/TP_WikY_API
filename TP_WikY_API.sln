@@ -3,17 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TP_WikY_API", "TP_WikY_API\TP_WikY_API.csproj", "{B6D9841A-E3D9-419C-9657-9272095FB73B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TP_WikY_API", "TP_WikY_API\TP_WikY_API.csproj", "{B6D9841A-E3D9-419C-9657-9272095FB73B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories", "Repositories\Repositories.csproj", "{2E61B5F9-F8DC-44A2-B7F7-1A269D126D8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repositories\Repositories.csproj", "{2E61B5F9-F8DC-44A2-B7F7-1A269D126D8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRepositories", "IRepositories\IRepositories.csproj", "{0FB89A21-EEE8-4156-A98D-C298B2CA7F75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IRepositories", "IRepositories\IRepositories.csproj", "{0FB89A21-EEE8-4156-A98D-C298B2CA7F75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{33D84707-74BA-4F1F-8949-0787E5939051}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{33D84707-74BA-4F1F-8949-0787E5939051}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTOs", "DTOs\DTOs.csproj", "{5C9FA9F5-B19B-419C-90D2-1DEC42B17C76}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Const", "Const\Const.csproj", "{5F5728F3-542D-4015-AD6B-3B132ADDA1C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTOs", "DTOs\DTOs.csproj", "{5C9FA9F5-B19B-419C-90D2-1DEC42B17C76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +39,6 @@ Global
 		{5C9FA9F5-B19B-419C-90D2-1DEC42B17C76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C9FA9F5-B19B-419C-90D2-1DEC42B17C76}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C9FA9F5-B19B-419C-90D2-1DEC42B17C76}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5F5728F3-542D-4015-AD6B-3B132ADDA1C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F5728F3-542D-4015-AD6B-3B132ADDA1C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F5728F3-542D-4015-AD6B-3B132ADDA1C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F5728F3-542D-4015-AD6B-3B132ADDA1C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

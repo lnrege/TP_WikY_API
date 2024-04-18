@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,15 +7,11 @@ using System.Threading.Tasks;
 
 namespace DTOs.DTOsComment
 {
-	public class CommentAddorUpdateDTO
+	public class CommentUpdateDTO
 	{
 		public int Id { get; set; }
-		public string Author { get; set; }
 
 		[MaxLength(100)]
 		public string Content { get; set; }
-
-		public int ArticleID { get; set; }
-
 	}
 }

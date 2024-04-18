@@ -9,6 +9,5 @@ namespace DTOs.DTOsArticle
 		public string Title { get; set; }
 		public string Content { get; set; }
 		public int ThemeID { get; set; }
-
 	}
 }
