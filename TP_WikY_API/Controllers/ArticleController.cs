@@ -24,20 +24,23 @@ namespace TP_WikY_API.Controllers
 			this.mapper = mapper;
 		}
 
-	
-		//SignInManager<AppUser> signInManager
 
-
+		/// <summary>
+		/// Get All the articles
+		/// </summary>
+		/// <returns>displays all the articles inlcuding the theme</returns>
 		[HttpGet]
-		
-		public async Task<IActionResult> GetAllArticles()
+		public async Task<ActionResult> GetAllArticles()
 		{
 			return Ok(await articleRepository.GetAllArticlesAsync());
 		}
 
+		/// <summary>
+		/// Get the article by ID
+		/// </summary>
+		/// <returns>displays the article which latches the id entered</returns>
 		[HttpGet]
-
-		public async Task<IActionResult> GetArticleById(int id)
+		public async Task<ActionResult> GetArticleById(int id)
 		{
 			return Ok(await articleRepository.GetArticleByIdAsync(id));
 		}
@@ -45,7 +48,7 @@ namespace TP_WikY_API.Controllers
 		/// <summary>
 		/// Create a new article
 		/// </summary>
-		/// <returns>article</returns>
+		/// <returns>the article created</returns>
 		[HttpPost]
 		[Authorize]
 		public async Task<ActionResult> CreateArticle(ArticleAddDTO articleAddDTO)
@@ -54,9 +57,9 @@ namespace TP_WikY_API.Controllers
 			{
 				var article = mapper.Map<Article>(articleAddDTO);
 				var user = await userManager.GetUserAsync(User);
-				article = await articleRepository.CreateArticleAsync(article, user);
+				var result = await articleRepository.CreateArticleAsync(article, user);
 
-				return Ok(article);
+				return Ok(result);
 			}
 			catch (Exception e)
 			{
@@ -69,15 +72,19 @@ namespace TP_WikY_API.Controllers
 		/// </summary>
 		/// <returns>the updated article</returns>
 		[HttpPut]
+		[Authorize]
 		public async Task<ActionResult> UpdateArticle(ArticleUpdateDTO articleUpdateDTO)
 		{
 			try
 			{
+				var user = await userManager.GetUserAsync(User);
 				var article = mapper.Map<Article>(articleUpdateDTO);
-
-				article = await articleRepository.UpdateArticleAsync(article);
-
-				return Ok(await articleRepository.GetArticleByIdAsync(articleUpdateDTO.Id));
+				if (article.AppUserID == user.Id)
+				{
+					article = await articleRepository.UpdateArticleAsync(article);
+					return Ok(await articleRepository.GetArticleByIdAsync(articleUpdateDTO.Id));
+				}
+				else return Problem("User is not autorized. Only the user who has update the Article can delete it ");
 			}
 			catch (Exception e)
 			{
@@ -85,11 +92,30 @@ namespace TP_WikY_API.Controllers
 			}
 		}
 
+		/// <summary>
+		/// Delete an article by the entered Id
+		/// </summary>
+		/// <returns></returns>
 		[HttpDelete]
 		[Authorize]
-		public async Task<IActionResult> DeleteArticleByID(int id)
+		public async Task<ActionResult> DeleteArticleByID(int id)
 		{
-			return Ok(await articleRepository.DeleteArticleByIDAsync(id));
+			try
+			{
+				var user = await userManager.GetUserAsync(User);
+				var article = await articleRepository.GetArticleByIdAsync(id);
+				if (article.AppUserID == user.Id)
+				{
+					await articleRepository.DeleteArticleByIDAsync(id);
+					return Ok("Article deleted !");
+				}
+				else
+					return Problem("User is not autorized. Only the user who has created the Article can delete it ");
+			}
+			catch (Exception e)
+			{
+				return Problem(e!.InnerException!.Message);
+			}
 		}
 	}
 }

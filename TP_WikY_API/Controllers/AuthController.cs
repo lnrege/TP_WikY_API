@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TP_WikY_API.Controllers
 {
@@ -13,33 +14,40 @@ namespace TP_WikY_API.Controllers
 	{
 		UserManager<AppUser> userManager;
 		//SignInManager<AppUser> signInManager;
-		RoleManager<IdentityRole> roleManager;
+		//RoleManager<IdentityRole> roleManager;
 		public AuthController(
-			UserManager<AppUser> userManager,
-			//SignInManager<AppUser> signInManager,
-			RoleManager<IdentityRole> roleManager)
+			UserManager<AppUser> userManager)
+		//SignInManager<AppUser> signInManager)
+		//RoleManager<IdentityRole> roleManager)
 		{
 			this.userManager = userManager;
 			//this.signInManager = signInManager;
-			this.roleManager = roleManager;
+			//this.roleManager = roleManager;
 		}
 
 		[HttpPost]
 		[AllowAnonymous]
 		public async Task<IActionResult> CreateUser(NewUserDTO userDTO)
 		{
-			var appUser = new AppUser { Name=userDTO.Name, UserName = userDTO.UserName, Dob=userDTO.Dob }; // Add other properties if needed
-			var result = await userManager.CreateAsync(appUser, userDTO.Password);
+			var appUser = new AppUser { UserName = userDTO.UserName, Name = userDTO.Name, Email = userDTO.Email, Dob = userDTO.Dob };
+			var age = DateTime.Today.Year - appUser.Dob.Year;
 
-			if (result.Succeeded)
+			if (age >= 18)
 			{
-				// use appUser to create other item with you context if needed
-
-				return Ok("User created !");
+				var result = await userManager.CreateAsync(appUser, userDTO.Password);
+				if (result.Succeeded)
+				{
+					return Ok("User created !");
+				}
+				else
+					return Problem(string.Join(" | ", result.Errors.Select(e => e.Description)));
 			}
 			else
-				return Problem(string.Join(" | ", result.Errors.Select(e => e.Description)));
+			{
+				return Problem("User's age is under 18 years old");
+			}
 		}
+
 
 		[HttpPost]
 		[AllowAnonymous]
@@ -58,33 +66,34 @@ namespace TP_WikY_API.Controllers
 		}
 
 
-		[AllowAnonymous]
-		[HttpPost]
-		public async Task<IActionResult> CreateRoleAdmin()
-		{
-			if (!await roleManager.RoleExistsAsync("ADMIN"))
-			{
-				var result = await roleManager.CreateAsync(new IdentityRole { Name = "ADMIN", NormalizedName = "ADMIN" });
+		//[AllowAnonymous]
+		//[HttpPost]
+		//public async Task<IActionResult> CreateRoleAdmin()
+		//{
+		//	if (!await roleManager.RoleExistsAsync("ADMIN"))
+		//	{
+		//		var result = await roleManager.CreateAsync(new IdentityRole { Name = "ADMIN", NormalizedName = "ADMIN" });
 
-				if (result.Succeeded)
-				{
-					return Ok();
-				}
-				else
-					return Problem(string.Join(" | ", result.Errors.Select(e => e.Description)));
+		//		if (result.Succeeded)
+		//		{
+		//			return Ok();
+		//		}
+		//		else
+		//			return Problem(string.Join(" | ", result.Errors.Select(e => e.Description)));
 
-			}
+		//	}
 
-			return Ok();
-		}
-		[HttpGet]
-		public async Task<IActionResult> AddUserToRoleAdmin()
-		{
-			var appUser = await userManager.GetUserAsync(User);
+		//	return Ok();
+		//}
+		//[HttpGet]
+		//public async Task<IActionResult> AddUserToRoleAdmin()
+		//{
+		//	var appUser = await userManager.GetUserAsync(User);
 
-			await userManager.AddToRoleAsync(appUser, "ADMIN");
+		//	await userManager.AddToRoleAsync(appUser, "ADMIN");
 
-			return Ok();
-		}
+		//	return Ok();
+		//}
 	}
 }
+

@@ -39,13 +39,26 @@ namespace Repositories.Repositories
 			return await context.Articles.FirstOrDefaultAsync(c => c.Id == id);
 		}
 
-		public async Task<Article> CreateArticleAsync(Article article, AppUser user)
+		public async Task<List<ArticleGetDTO>> CreateArticleAsync(Article article, AppUser user)
 		{
 			article.CreationDate = DateTime.Now;
 			article.AppUserID = user.Id;
 			await context.Articles.AddAsync(article);
 			await context.SaveChangesAsync();
-			return article;
+
+			var articles = await context.Articles.Where(a=>a.Id==article.Id)
+				.Include(a => a.Theme)
+		   .Include(a => a.AppUser)
+		   .Select(a => new ArticleGetDTO
+		   {
+			   Title = a.Title,
+			   Content = a.Content,
+			   CreationDate = a.CreationDate,
+			   LastModifiedDate = a.LastModifiedDate,
+			   ThemeName = a.Theme.Label
+		   })
+		   .ToListAsync();
+			return articles;
 		}
 
 		public async Task<Article?> UpdateArticleAsync(Article article)

@@ -1,4 +1,5 @@
 using DTOs.DTOsArticle;
+using DTOs.DTOsAuth;
 using DTOs.DTOsComment;
 using IRepositories;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
@@ -19,6 +20,7 @@ builder.Services.AddAutoMapper(c =>
 {
 	c.CreateMap<ArticleAddDTO, Article>();
 	c.CreateMap<ArticleUpdateDTO, Article>();
+	c.CreateMap<ArticleCreateDTO, Article>();
 	//.ForMember(dest=>dest.AppUserID, a=>a.MapFrom(src=>src.UserID));
 	//c.CreateMap<CommentUpdateDTO, Comment>();
 });
